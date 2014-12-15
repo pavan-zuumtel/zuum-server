@@ -1,7 +1,9 @@
-var http = require("http");
+var http = require('express');
+var app = express();
 
-http.createServer(function(request, response) {
-	response.writeHead(200, {"Content-Type": "text/plain"});
-	response.write("Just testing");
-	response.end();
-}).listen(5000);
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', function('/', function(request, response) {
+	response.send("Just Testing");
+}));
