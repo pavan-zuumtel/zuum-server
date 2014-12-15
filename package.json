@@ -6,6 +6,7 @@
 	"scripts": {
 	},
 	"dependencies": {
+		"express": "~4.9.x"
 	},
 	"engines": {
 	},
