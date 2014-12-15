@@ -4,7 +4,7 @@
 	"description": "Simple server to test impinj product",
 	"main": "index.js",
 	"scripts": {
-	}
+	},
 	"dependencies": {
 	},
 	"engines": {
