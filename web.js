@@ -19,6 +19,7 @@ app.get('/', function(request, response) {
 
 app.post('/', function(request, response) {
 	response.send("" +request.body.reader_name +"<br>"+request.body.mac_address);
+	console.log(request.body.reader_name);
 	//response.send(request.body.time);
 });
 
