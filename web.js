@@ -20,6 +20,11 @@ app.get('/', function(request, response) {
 app.post('/', function(request, response) {
 	response.send("" +request.body.reader_name +"<br>"+request.body.mac_address);
 	console.log(request.body.reader_name);
+	console.log(request.body.mac_address);
+	console.log(request.body.line_ending);
+	console.log(request.body.field_delim);
+	console.log(request.body.field_names);
+	console.log(request.body.field_values);
 	//response.send(request.body.time);
 });
 
