@@ -18,7 +18,7 @@ app.get('/', function(request, response) {
 });
 
 app.post('/', function(request, response) {
-	response.send("" +request.body.tag +"<br>"+request.body.time);
+	response.send("" +request.body.reader_name +"<br>"+request.body.mac_address);
 	//response.send(request.body.time);
 });
 
