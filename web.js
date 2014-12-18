@@ -65,7 +65,7 @@ app.post('/', function(request, response) {
 	console.log(request.body.field_delim);
 	console.log(request.body.field_names);
 	console.log(request.param('field_values').length);
-	console.log(field_values);
+	console.log(request.body.field_values);
 	console.log(cars_info);
 });
 
