@@ -1,10 +1,21 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
+var nodemailer = require('nodemailer');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
 var auctionSite;	// Associate the mac_address of the reader at a place
+/* 
+   Configure smtp server details
+*/
+var transport = nodemailer.createTransport( {
+	service: "Gmail",
+	auth: {
+		user: "zuum.email@gmail.com",
+		pass: "zuum.tel"
+	}
+});
 
 myFirebaseRef.remove();
 
@@ -59,6 +70,11 @@ app.post('/fromManheim', function(request, response) {
 	
 	//response.send("" +request.body.tag_id +"<br>"+request.body.car_name);
 	var tagID = request.body.tag_id;
+	var mobileNumber = request.body.mobile_number;
+	var carrier = request.body.carrier_name;
+
+	// For now, Just consider AT&T (TODO)
+	var carrierSMTPFormat = "@txt.att.net";
 	/*
 	myFirebaseRef.child(auctionSite).child(tagID).on("value", function(snapshot) {
 		var carInfo = snapshot.val();
@@ -82,6 +98,19 @@ app.post('/fromManheim', function(request, response) {
 		if (carInfo != null) {
 			// send SMS and detach callback
 
+			var mailOptions = {
+				from: "zuum.email@gmail.com",
+				to: mobileNumber.trim() + carrierSMTPFormat.trim(),
+				subject: "Testing ....",
+				text: "car was at " + carInfo.First_seen_time
+			}
+			transport.sendMail(mailOptions, function(error, response) {
+				if (error) {
+					console.log(error);
+				} else {
+					console.log("Message sent");
+				}
+			});
 			console.log("SMS ...", carInfo);
 			// detach the callback after sending SMS
 			tagRef.off("value", sendSMS);
