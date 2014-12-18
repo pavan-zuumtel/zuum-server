@@ -4,7 +4,7 @@ var Firebase = require('firebase');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
-var carId;
+var auctionSite;	// Associate the mac_address of the reader at a place
 
 myFirebaseRef.remove();
 
@@ -22,15 +22,29 @@ app.get('/', function(request, response) {
 });
 
 app.post('/', function(request, response) {
-	// TODO: Check the field_values 
+	
+	// store the required POST data in an array where each cell corresponds
+	// to the info of a particular tag/car. 
+	cars_info = request.body.field_values.split("\n");
+	console.log("Last element: " +cars_info.pop());	// last element is an empty string
+	auctionSite = request.body.mac_address
+	readerId = myFirebaseRef.child(auctionSite);
+	var antenna_id = 0;
+	var epc = 1;
+	var first_seen_time = 2;
+	var RSSI = 3;
+	for (eachCar in cars_info) {
+		// eachCar will be in the form of"antenna_id,"epc",ts,RSSI"
+		carInfo = cars_info[eachCar].split(",");
+		carID = carInfo[epc];
 
-	/*carId = myFirebaseRef.child(request.body.mac_address);
-	carId.set({
-		// reader_name: request.body.reader_name,
-		// mac_address: request.body.mac_address,
-		'field_names': request.body.field_names,
-		'field_values': request.body.field_values
-	});*/
+		readerId.child(carID).set({
+			
+			'Antennaid': carInfo[antenna_id],
+			'First_seen_time': carInfo[first_seen_time],
+			'RSSI': carInfo[RSSI]
+		});
+	}
 
 	console.log("New One\n");
 	console.log(request.body.reader_name);
@@ -38,19 +52,43 @@ app.post('/', function(request, response) {
 	console.log(request.body.line_ending);
 	console.log(request.body.field_delim);
 	console.log(request.body.field_names);
-	console.log(request.body.field_values);
-	request.body.field_values = []
-	//response.send(request.body.time);
+	console.log(request.param('field_values').length);
 });
 
 app.post('/fromManheim', function(request, response) {
 	
-	response.send("" +request.body.tag +"<br>"+request.body.time);
-	myFirebaseRef.on("value", function(snapshot) {
-		console.log(snapshot.val());
+	//response.send("" +request.body.tag_id +"<br>"+request.body.car_name);
+	var tagID = request.body.tag_id;
+	/*
+	myFirebaseRef.child(auctionSite).child(tagID).on("value", function(snapshot) {
+		var carInfo = snapshot.val();
+		if (carInfo != null) {
+			// Send SMS and detach the call back
+
+			console.log("SMS ...");
+			this.off();
+		}
+		console.log(carInfo);
 	}, function(errorObject) {
+
 		console.log("Read operation failed: " +errorObject.code);
 	});
+	*/
+	tagRef = myFirebaseRef.child(auctionSite).child(tagID);
+	tagRef.on("value", sendSMS);
+
+	function sendSMS(snapshot) {
+		var carInfo = snapshot.val();
+		if (carInfo != null) {
+			// send SMS and detach callback
+
+			console.log("SMS ...", carInfo);
+			// detach the callback after sending SMS
+			tagRef.off("value", sendSMS);
+			console.log("After Callback ", tagID);
+		}
+	}
+	response.send("OK");
 });
 
 app.listen(app.get('port'), function() {
