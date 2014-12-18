@@ -38,7 +38,7 @@ app.post('/', function(request, response) {
 	// to the info of a particular tag/car. 
 	response.send(request.body.field_values);
 	cars_info = request.body.field_values.split("\n");
-	console.log("Last element: " +cars_info.pop());	// last element is an empty string
+	// console.log("Last element: " +cars_info.pop());	// last element is an empty string
 	auctionSite = request.body.mac_address
 	readerId = myFirebaseRef.child(auctionSite);
 	var antenna_id = 0;
