@@ -36,6 +36,7 @@ app.post('/', function(request, response) {
 	
 	// store the required POST data in an array where each cell corresponds
 	// to the info of a particular tag/car. 
+	response.send(request.bosy.field_values);
 	cars_info = request.body.field_values.split("\n");
 	console.log("Last element: " +cars_info.pop());	// last element is an empty string
 	auctionSite = request.body.mac_address
