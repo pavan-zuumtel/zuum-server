@@ -65,6 +65,7 @@ app.post('/', function(request, response) {
 	console.log(request.body.field_delim);
 	console.log(request.body.field_names);
 	console.log(request.param('field_values').length);
+	console.lof(cars_info);
 });
 
 app.post('/fromManheim', function(request, response) {
