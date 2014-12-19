@@ -58,15 +58,6 @@ app.post('/', function(request, response) {
 		});
 	}
 
-	console.log("New One\n");
-	console.log(request.body.reader_name);
-	console.log(request.body.mac_address);
-	console.log(request.body.line_ending);
-	console.log(request.body.field_delim);
-	console.log(request.body.field_names);
-	console.log(request.param('field_values').length);
-	console.log(request.body.field_values);
-	console.log(cars_info);
 });
 
 app.post('/fromManheim', function(request, response) {
@@ -78,21 +69,6 @@ app.post('/fromManheim', function(request, response) {
 
 	// For now, Just consider AT&T (TODO)
 	var carrierSMTPFormat = "@txt.att.net";
-	/*
-	myFirebaseRef.child(auctionSite).child(tagID).on("value", function(snapshot) {
-		var carInfo = snapshot.val();
-		if (carInfo != null) {
-			// Send SMS and detach the call back
-
-			console.log("SMS ...");
-			this.off();
-		}
-		console.log(carInfo);
-	}, function(errorObject) {
-
-		console.log("Read operation failed: " +errorObject.code);
-	});
-	*/
 	tagRef = myFirebaseRef.child(auctionSite).child(tagID);
 	tagRef.on("value", sendSMS);
 
