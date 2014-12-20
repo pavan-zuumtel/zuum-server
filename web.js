@@ -48,7 +48,7 @@ app.post('/', function(request, response) {
 	// response.send(request.body.field_values);
 	cars_info = request.body.field_values.split("\n");
 	cars_info.pop();	// last element is an empty string
-	auctionSite = request.body.mac_address.replace('"', '', "g");
+	auctionSite = request.body.mac_address.split('"').join("");
 	readerId = myFirebaseRef.child(auctionSite);
 	var antenna_id = 0;
 	var epc = 1;
@@ -57,7 +57,7 @@ app.post('/', function(request, response) {
 	for (eachCar in cars_info) {
 		// eachCar will be in the form of"antenna_id,"epc",ts,RSSI"
 		carInfo = cars_info[eachCar].split(",");
-		carID = carInfo[epc].replace('"', '', "g");
+		carID = carInfo[epc].split('"').join("");
 
 		readerId.child(carID).set({
 			
