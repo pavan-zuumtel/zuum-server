@@ -21,7 +21,7 @@ var transport = nodemailer.createTransport( {
 // using thid method to send SMS
 carrierSMTPFormat = {
 	"AT&T": "@txt.att.net",
-	"Sprint": "@sprintpaging.com",
+	"Sprint": "@pm.sprint.com",
 	"T-Mobile": "@tmomail.net",
 	"Verizon": "@vtext.com" 
 };
