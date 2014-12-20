@@ -17,6 +17,15 @@ var transport = nodemailer.createTransport( {
 	}
 });
 
+// TODO: Include the gateway addresses of all known mobile carriers if
+// using thid method to send SMS
+carrierSMTPFormat = {
+	"AT&T": "@txt.att.net",
+	"Sprint": "@sprintpaging.com",
+	"T-Mobile": "@tmomail.net",
+	"Verizon": "@vtext.com" 
+};
+
 myFirebaseRef.remove();
 
 app.set('port', (process.env.PORT || 5000));
@@ -36,9 +45,9 @@ app.post('/', function(request, response) {
 	
 	// store the required POST data in an array where each cell corresponds
 	// to the info of a particular tag/car. 
-	response.send(request.body.field_values);
+	// response.send(request.body.field_values);
 	cars_info = request.body.field_values.split("\n");
-	console.log("Last element: " +cars_info.pop());	// last element is an empty string
+	cars_info.pop();	// last element is an empty string
 	auctionSite = request.body.mac_address
 	readerId = myFirebaseRef.child(auctionSite);
 	var antenna_id = 0;
@@ -53,12 +62,23 @@ app.post('/', function(request, response) {
 		readerId.child(carID).set({
 			
 			'Antennaid': carInfo[antenna_id],
-			'First_seen_time': carInfo[first_seen_time],
+			// divide the ts received by 1000 in order to work with Date() (Not sure if this is the best way to do but for now ...)
+			'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toString(),
 			'RSSI': carInfo[RSSI]
 		});
 	}
 
+	// TODO: Find a better way of doing this and replace the following
+	// This is a very bad way of doing this and also not correct
+	setTimeout(clearData, 8*60*60*1000);
+
+	response.end();
+
 });
+
+function clearData() {
+	myFirebaseRef.remove();
+}
 
 app.post('/fromManheim', function(request, response) {
 	
@@ -67,8 +87,6 @@ app.post('/fromManheim', function(request, response) {
 	var mobileNumber = request.body.mobile_number;
 	var carrier = request.body.carrier_name;
 
-	// For now, Just consider AT&T (TODO)
-	var carrierSMTPFormat = "@txt.att.net";
 	tagRef = myFirebaseRef.child(auctionSite).child(tagID);
 	tagRef.on("value", sendSMS);
 
@@ -79,7 +97,7 @@ app.post('/fromManheim', function(request, response) {
 
 			var mailOptions = {
 				from: "zuum.email@gmail.com",
-				to: mobileNumber.trim() + carrierSMTPFormat.trim(),
+				to: mobileNumber.trim() + carrierSMTPFormat[carrier].trim(),
 				subject: "Testing ....",
 				text: "car was at " + carInfo.First_seen_time
 			}
@@ -96,7 +114,7 @@ app.post('/fromManheim', function(request, response) {
 			console.log("After Callback ", tagID);
 		}
 	}
-	response.send("OK");
+	response.end();
 });
 
 app.listen(app.get('port'), function() {
