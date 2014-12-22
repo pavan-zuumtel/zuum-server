@@ -87,6 +87,10 @@ app.post('/fromManheim', function(request, response) {
 	var mobileNumber = request.body.mobile_number;
 	var carrier = request.body.carrier_name;
 
+	if (auctionSite == "") {
+		response.send("Auction has not yet started. So your request will not be considered");
+		response.end();
+	}
 	tagRef = myFirebaseRef.child(auctionSite).child(tagID);
 	tagRef.on("value", sendSMS);
 
