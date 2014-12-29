@@ -80,7 +80,8 @@ app.post('/', function(request, response) {
 });
 
 function clearData(readerId) {
-	myFirebaseRef.child(readerId).remove();
+	console.log("hello");
+	myFirebaseRef.remove();
 }
 
 app.post('/fromManheim', function(request, response) {
