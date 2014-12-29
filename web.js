@@ -66,12 +66,16 @@ app.post('/', function(request, response) {
 			'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toString(),
 			'RSSI': carInfo[RSSI]
 		});
+
+		reader.child(carID).setPriority(parseInt(carInfo[first_seen_time])/1000);
+		console.log(reader.child(carID).priority);
 	}
 
 	// TODO: Find a better way of doing this and replace the following
 	// This is a very bad way of doing this and also not correct
-	setTimeout(clearData, 8*60*60*1000);
+	// setTimeout(clearData, 8*60*60*1000);
 
+	
 	response.end();
 
 });
