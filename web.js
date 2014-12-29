@@ -57,7 +57,7 @@ app.post('/', function(request, response) {
 		// probably means the auction has started. So delete all the
 		// data sent by this reader after 8 hrs.
 		readerId = myFirebaseRef.child(auctionSite);
-		setTimeout(clearData, 8*60*60*1000, auctionSite);
+		setTimeout(clearData, 10*1000, auctionSite);
 
 		allReaders.push(auctionSite); 
 	}
