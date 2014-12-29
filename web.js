@@ -72,7 +72,7 @@ app.post('/', function(request, response) {
 
 	// TODO: Find a better way of doing this and replace the following
 	// This is a very bad way of doing this and also not correct
-	setTimeout(clearData(readerId), 8*1000);
+	setTimeout(clearData, 8*1000);
 
 	
 	response.end();
@@ -80,7 +80,6 @@ app.post('/', function(request, response) {
 });
 
 function clearData(readerId) {
-	console.log(readerId);
 	myFirebaseRef.child(readerId).remove();
 }
 
