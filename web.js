@@ -58,7 +58,7 @@ app.post('/', function(request, response) {
 		// If there are multiple auctions on the same day, this will
 		// not work as expected but still fine. (Chnage this when you find a better solution) 
 		readerId = myFirebaseRef.child(auctionSite);
-		setTimeout(clearData, 10*1000, readerId);
+		setTimeout(clearData, 10*1000, auctionSite) 
 	}
 
 	var antenna_id = 0;
@@ -89,8 +89,8 @@ app.post('/', function(request, response) {
 
 });
 
-function clearData(readerId) {
-	console.log(readerId.ref());
+function clearData(auctionSite) {
+	console.log(myFirebaseRef + '/' + auctionSite);
 	// myFirebaseRef.child(readerId).remove();
 }
 
