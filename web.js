@@ -90,8 +90,8 @@ app.post('/', function(request, response) {
 });
 
 function clearData(auctionSite) {
-	console.log(myFirebaseRef + '/' + auctionSite);
-	// myFirebaseRef.child(readerId).remove();
+	ref = myFirebaseRef + '/' + auctionSite;
+	ref.remove();
 }
 
 app.post('/fromManheim', function(request, response) {
