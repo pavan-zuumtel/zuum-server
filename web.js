@@ -58,7 +58,7 @@ app.post('/', function(request, response) {
 		// If there are multiple auctions on the same day, this will
 		// not work as expected but still fine. (Chnage this when you find a better solution) 
 		readerId = myFirebaseRef.child(auctionSite);
-		setTimeout(clearData, 10*1000, auctionSite) 
+		setTimeout(clearData, 8*60*60*1000, auctionSite) 
 	}
 
 	var antenna_id = 0;
@@ -80,11 +80,6 @@ app.post('/', function(request, response) {
 
 	}
 
-	// TODO: Find a better way of doing this and replace the following
-	// This is a very bad way of doing this and also not correct
-	// setTimeout(clearData, 60*1000, );
-
-	
 	response.end();
 
 });
@@ -100,6 +95,10 @@ app.post('/fromManheim', function(request, response) {
 	var tagID = request.body.tag_id;
 	var mobileNumber = request.body.mobile_number;
 	var carrier = request.body.carrier_name;
+
+	if (mobileNumber.trim().length != 10) {
+	response.end("Not a valid number");
+}
 
 	if (auctionSite == "") {
 		response.send("Auction has not yet started. So your request will not be considered");
