@@ -50,6 +50,7 @@ app.post('/', function(request, response) {
 	cars_info.pop();	// last element is an empty string
 	auctionSite = request.body.mac_address.split('"').join("");
 	readerId = myFirebaseRef.child(auctionSite);
+
 	var antenna_id = 0;
 	var epc = 1;
 	var first_seen_time = 2;
@@ -67,13 +68,11 @@ app.post('/', function(request, response) {
 			'RSSI': carInfo[RSSI]
 		});
 
-		readerId.child(carID).setPriority(parseInt(carInfo[first_seen_time])/1000);
-		console.log(myFirebaseRef.getPriority());
 	}
 
 	// TODO: Find a better way of doing this and replace the following
 	// This is a very bad way of doing this and also not correct
-	// setTimeout(clearData, 8*60*60*1000);
+	setTimeout(clearData, 8*60*60*1000);
 
 	
 	response.end();
