@@ -68,7 +68,7 @@ app.post('/', function(request, response) {
 		});
 
 		readerId.child(carID).setPriority(parseInt(carInfo[first_seen_time])/1000);
-		console.log(readerId.getPriority());
+		console.log(myFirebaseRef.getPriority());
 	}
 
 	// TODO: Find a better way of doing this and replace the following
