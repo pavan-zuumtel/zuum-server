@@ -90,7 +90,7 @@ app.post('/', function(request, response) {
 });
 
 function clearData(auctionSite) {
-	ref = myFirebaseRef + '/' + auctionSite;
+	ref = new Firebase(myFirebaseRef + '/' + auctionSite);
 	ref.remove();
 }
 
