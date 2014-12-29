@@ -72,15 +72,16 @@ app.post('/', function(request, response) {
 
 	// TODO: Find a better way of doing this and replace the following
 	// This is a very bad way of doing this and also not correct
-	setTimeout(clearData, 8*60*60*1000);
+	setTimeout(clearData(readerId), 8*1000);
 
 	
 	response.end();
 
 });
 
-function clearData() {
-	myFirebaseRef.remove();
+function clearData(readerId) {
+	console.log(readerId);
+	myFirebaseRef.child(readerId).remove();
 }
 
 app.post('/fromManheim', function(request, response) {
