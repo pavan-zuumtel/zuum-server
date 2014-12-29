@@ -6,7 +6,9 @@ var nodemailer = require('nodemailer');
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
 var auctionSite;	// Associate the mac_address of the reader at a place
-var readerId;	// stores the ref to the reader/auctions location 
+var readerId;	// stores the ref to the reader/auctions location
+
+var allReaders = []	// list of all readers cuurrently in auction
 /* 
    Configure smtp server details
 */
@@ -50,12 +52,14 @@ app.post('/', function(request, response) {
 	cars_info = request.body.field_values.split("\n");
 	cars_info.pop();	// last element is an empty string
 	auctionSite = request.body.mac_address.split('"').join("");
-	if (typeof myFirebaseRef.child(auctionSite) === 'undefined') {
+	if (allReaders.indexOf(auctionSite) == -1) {
 		// If this is the first time, a reader is sending data, it
 		// probably means the auction has started. So delete all the
 		// data sent by this reader after 8 hrs.
 		readerId = myFirebaseRef.child(auctionSite);
-		setTimeout(clearData, 8*60*60*1000, auctionSite) 
+		setTimeout(clearData, 8*60*60*1000, auctionSite);
+
+		allReaders.push(auctionSite); 
 	}
 
 	var antenna_id = 0;
@@ -84,6 +88,9 @@ app.post('/', function(request, response) {
 function clearData(auctionSite) {
 	ref = new Firebase(myFirebaseRef + '/' + auctionSite);
 	ref.remove();
+
+	ind = allReaders.indexOf(auctionSite);
+	allReaders.splice(ind, 1);
 }
 
 app.post('/fromManheim', function(request, response) {
