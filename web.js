@@ -67,8 +67,8 @@ app.post('/', function(request, response) {
 			'RSSI': carInfo[RSSI]
 		});
 
-		readerID.child(carID).setPriority(parseInt(carInfo[first_seen_time])/1000);
-		console.log(readerID.child(carID).priority);
+		readerId.child(carID).setPriority(parseInt(carInfo[first_seen_time])/1000);
+		console.log(readerId.child(carID).priority);
 	}
 
 	// TODO: Find a better way of doing this and replace the following
