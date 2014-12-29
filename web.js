@@ -75,7 +75,7 @@ app.post('/', function(request, response) {
 			
 			'Antennaid': carInfo[antenna_id],
 			// divide the ts received by 1000 in order to work with Date() (Not sure if this is the best way to do but for now ...)
-			'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toString(),
+			'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toLocaleString(),
 			'RSSI': carInfo[RSSI]
 		});
 
