@@ -90,7 +90,7 @@ app.post('/', function(request, response) {
 });
 
 function clearData(readerId) {
-	console.log(myFirebaseRef.child(readerId).ref());
+	console.log(readerId.ref());
 	// myFirebaseRef.child(readerId).remove();
 }
 
