@@ -6,7 +6,7 @@ var nodemailer = require('nodemailer');
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
 var auctionSite;	// Associate the mac_address of the reader at a place
-var readerId;	// ...
+var readerId;	// stores the ref to the reader/auctions location 
 /* 
    Configure smtp server details
 */
@@ -50,13 +50,10 @@ app.post('/', function(request, response) {
 	cars_info = request.body.field_values.split("\n");
 	cars_info.pop();	// last element is an empty string
 	auctionSite = request.body.mac_address.split('"').join("");
-	if (readerId != myFirebaseRef.child(auctionSite)) {
+	if (!myFirebaseRef.hasChild(auctionSite)) {
 		// If this is the first time, a reader is sending data, it
 		// probably means the auction has started. So delete all the
 		// data sent by this reader after 8 hrs.
-
-		// If there are multiple auctions on the same day, this will
-		// not work as expected but still fine. (Chnage this when you find a better solution) 
 		readerId = myFirebaseRef.child(auctionSite);
 		setTimeout(clearData, 8*60*60*1000, auctionSite) 
 	}
@@ -91,12 +88,12 @@ function clearData(auctionSite) {
 
 app.post('/fromManheim', function(request, response) {
 	
-	//response.send("" +request.body.tag_id +"<br>"+request.body.car_name);
 	var tagID = request.body.tag_id;
 	var mobileNumber = request.body.mobile_number;
 	var carrier = request.body.carrier_name;
 
 	if (mobileNumber.trim().length != 10) {
+	// Only checks the length of the number but not whether it contains chars or numbers 
 	response.end("Not a valid number");
 }
 
