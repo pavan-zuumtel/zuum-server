@@ -50,7 +50,7 @@ app.post('/', function(request, response) {
 	cars_info = request.body.field_values.split("\n");
 	cars_info.pop();	// last element is an empty string
 	auctionSite = request.body.mac_address.split('"').join("");
-	if (!myFirebaseRef.hasChild(auctionSite)) {
+	if (!myFirebaseRef.child(auctionSite)) {
 		// If this is the first time, a reader is sending data, it
 		// probably means the auction has started. So delete all the
 		// data sent by this reader after 8 hrs.
