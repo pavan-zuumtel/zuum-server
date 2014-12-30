@@ -5,7 +5,7 @@ var nodemailer = require('nodemailer');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
-var auctionSite;	// Associate the mac_address of the reader at a place
+var auctionSite = "";	// Associate the mac_address of the reader at a place
 var readerId;	// stores the ref to the reader/auctions location
 
 var allReaders = []	// list of all readers cuurrently in auction
