@@ -41,7 +41,5 @@ function getInfo(vin_number) {
 	console.log('Now..');
 }
 
-getInfo('');
-
 exports.getInfo = getInfo;
 
