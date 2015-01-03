@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
 var nodemailer = require('nodemailer');
-var decoder = require('./apis/edmunds/decoder.js');
+var decoder = require('./apis/edmunds/decoder');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
