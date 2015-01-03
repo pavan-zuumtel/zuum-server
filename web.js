@@ -117,6 +117,8 @@ app.post('/fromManheim', function(request, response) {
   function sendSMS(snapshot) {
     var carInfo = snapshot.val();
     if (carInfo !== null) {
+      console.log(typeof decoder);
+      console.log(typeof express);
       var decoder = new decoder.decodeVin(vinNumber);
       decoder.on('carDetails', function() {
         if (decoder.error === false) {
