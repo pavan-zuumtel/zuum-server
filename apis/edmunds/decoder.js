@@ -42,10 +42,11 @@ var decodeVin = function(vin_number) {
     }
   }).end();
 };
+exports.greet = "hello";
 
 // decodeVin.prototype.__proto__ = events.EventEmitter.prototype;
 util.inherits(decodeVin, events.EventEmitter);
-
+exports.decodeVin = decodeVin;
 // var obj = new decodeVin("2G1FC3D33C9165616");
 // obj.on("carDetails", function(){
 //   var info = obj.data;
@@ -57,4 +58,3 @@ util.inherits(decodeVin, events.EventEmitter);
 //   console.log(info.years[0].styles[0].trim);
 // });
 
-exports.decodeVin = decodeVin;

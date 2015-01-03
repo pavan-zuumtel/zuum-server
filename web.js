@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
 var nodemailer = require('nodemailer');
-var decoder = require('./decoder.js');
+var decoder = require('./apis/edmunds/decoder.js');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
@@ -119,36 +119,38 @@ app.post('/fromManheim', function(request, response) {
     if (carInfo !== null) {
       console.log(typeof decoder);
       console.log(typeof express);
-      var decoder = new decoder.decodeVin(vinNumber);
-      decoder.on('carDetails', function() {
-        if (decoder.error === false) {
-          carSpecs = decoder.data;
+      var decode = new decoder.decodeVin(vinNumber);
+      decode.on('carDetails', function() {
+        if (decode.error === false) {
+          carSpecs = decode.data;
           year = carSpecs.years[0].year;
           make = carSpecs.make.name;
           model = carSpecs.model.name;
           trim = carSpecs.years[0].styles[0].trim;
 
-          message = "Your" + year + make + model + trim + "has entered the building at lane 1 at" + carInfo.First_seen_time;
-        }
-      });
-      // send SMS and detach callback
-      var mailOptions = {
-        from: "zuum.email@gmail.com",
-        to: mobileNumber.trim() + carrierSMTPFormat[carrier].trim(),
-        subject: "Testing ....",
-        text: message 
-      };
-      transport.sendMail(mailOptions, function(error, response) {
-        if (error) {
-          console.log(error);
+          message = "Your " + year +' '+ make +' ' + model +' '+ trim + "has entered the building at lane 1 at " + carInfo.First_seen_time;
         } else {
-          console.log("Message sent");
+          message = "Your car entered the building at lane 1 at " + carInfo.First_seen_time;
         }
+        var mailOptions = {
+          from: "zuum.email@gmail.com",
+          to: mobileNumber.trim() + carrierSMTPFormat[carrier].trim(),
+          subject: "Testing ....",
+          text: message 
+        };
+        transport.sendMail(mailOptions, function(error, response) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Message sent:", message);
+          }
+        });
+        console.log("SMS ...", carInfo);
+        // detach the callback after sending SMS
+        tagRef.off("value", sendSMS);
+        console.log("After Callback ", tagID);
+
       });
-      console.log("SMS ...", carInfo);
-      // detach the callback after sending SMS
-      tagRef.off("value", sendSMS);
-      console.log("After Callback ", tagID);
     }
   }
   response.end();
