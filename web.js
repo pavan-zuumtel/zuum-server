@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
 var nodemailer = require('nodemailer');
+var decoder = require('./apis/edmunds/decoder.js');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
@@ -96,6 +97,10 @@ app.post('/fromManheim', function(request, response) {
   var tagID = request.body.tag_id;
   var mobileNumber = request.body.mobile_number;
   var carrier = request.body.carrier_name;
+  var vinNumber = request.body.vin_number;
+
+  var message = '';
+  var carSpecs, year, make, model, trim;
 
   if (mobileNumber.trim().length != 10) {
     // Only checks the length of the number but not whether it contains chars or numbers 
@@ -112,12 +117,24 @@ app.post('/fromManheim', function(request, response) {
   function sendSMS(snapshot) {
     var carInfo = snapshot.val();
     if (carInfo !== null) {
+      var decoder = new decoder.decodeVin(vinNumber);
+      decoder.on('carDetails', function() {
+        if (decoder.error === false) {
+          carSpecs = decoder.data;
+          year = carSpecs.years[0].year;
+          make = carSpecs.make.name;
+          model = carSpecs.model.name;
+          trim = carSpecs.years[0].styles[0].trim;
+
+          message = "Your" + year + make + model + trim + "has entered the building at lane 1 at" + carInfo.First_seen_time;
+        }
+      });
       // send SMS and detach callback
       var mailOptions = {
         from: "zuum.email@gmail.com",
         to: mobileNumber.trim() + carrierSMTPFormat[carrier].trim(),
         subject: "Testing ....",
-        text: "car was at " + carInfo.First_seen_time
+        text: message 
       };
       transport.sendMail(mailOptions, function(error, response) {
         if (error) {
