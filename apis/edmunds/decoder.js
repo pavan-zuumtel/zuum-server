@@ -13,7 +13,7 @@ var options = {
   hostname: HOST 
 };
 
-function decodeVin(vin_number) {
+var decodeVin = function(vin_number) {
   this.path = endpoint + vin_number + '?fmt=' +fmt + '&api_key=' + api_key;
   options.path = this.path;
   this.data = '';
@@ -41,7 +41,7 @@ function decodeVin(vin_number) {
       obj.error = false;
     }
   }).end();
-}
+};
 
 // decodeVin.prototype.__proto__ = events.EventEmitter.prototype;
 util.inherits(decodeVin, events.EventEmitter);
