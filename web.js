@@ -98,50 +98,8 @@ app.post('/fromManheim', function(request, response) {
     sms.sendSMS(snapshot, parameters);
   });
 
-  /*
-  function sendSMS(snapshot) {
-    var carInfo = snapshot.val();
-    if (carInfo !== null) {
-      console.log(typeof decoder);
-      console.log(typeof express);
-      var decode = new decoder.decodeVin(parameters.vinNumber);
-      decode.on('carDetails', function() {
-        if (decode.error === false) {
-          carSpecs = decode.data;
-          year = carSpecs.years[0].year;
-          make = carSpecs.make.name;
-          model = carSpecs.model.name;
-          trim = carSpecs.years[0].styles[0].trim;
-
-          message = "Your " + year +' '+ make +' ' + model +' '+ trim + "has entered the building at lane 1 at " + carInfo.First_seen_time;
-        } else {
-          message = "Your car entered the building at lane 1 at " + carInfo.First_seen_time;
-        }
-        var mailOptions = {
-          from: "zuum.email@gmail.com",
-          to: parameters.mobileNumber.trim() + carrierSMTPFormat[parameters.carrier].trim(),
-          subject: "Testing ....",
-          text: message 
-        };
-        transport.sendMail(mailOptions, function(error, response) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("Message sent:", message);
-          }
-        });
-        console.log("SMS ...", carInfo);
-        // detach the callback after sending SMS
-        // tagRef.off("value", sendSMS);
-        console.log("After Callback ", parameters.tagID);
-
-      });
-    }
-  }
-  */
-
   console.log("hello");
-  //tagRef.off("value", sms.sendSMS);
+  tagRef.off("value", sms.sendSMS);
   response.end();
 });
 
