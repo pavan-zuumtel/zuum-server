@@ -9,25 +9,6 @@ var auctionSite = "";	// Associate the mac_address of the reader at a place
 var readerId;	// stores the ref to the reader/auctions location
 
 var allReaders = [];	// list of all readers cuurrently in auction
-/* 
-Configure smtp server details
-*/
-var transport = nodemailer.createTransport( {
-  service: "Gmail",
-  auth: {
-    user: "zuum.email@gmail.com",
-    pass: "zuum.tel"
-  }
-});
-
-// TODO: Include the gateway addresses of all known mobile carriers if
-// using thid method to send SMS
-carrierSMTPFormat = {
-  "AT&T": "@txt.att.net",
-  "Sprint": "@pm.sprint.com",
-  "T-Mobile": "@tmomail.net",
-  "Verizon": "@vtext.com" 
-};
 
 myFirebaseRef.remove();
 

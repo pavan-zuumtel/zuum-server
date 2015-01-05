@@ -1,6 +1,9 @@
 var nodemailer = require('nodemailer');
 var decoder = require('../apis/edmunds/decoder.js');
 
+/*
+ * Configure smtp server details
+ */
 var transport = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -9,6 +12,8 @@ var transport = nodemailer.createTransport({
   }
 });
 
+// TODO: Include the gateway addresses of all known mobile carriers if
+// using this method to send SMS.
 var carrierSMTPFormat = {
   "AT&T": "@txt.att.net",
   "Sprint": "@pm.sprint.com",
