@@ -1,5 +1,5 @@
 var nodemailer = require('nodemailer');
-var decoder = require('../apis/edmunds.decoder.js');
+var decoder = require('../apis/edmunds/decoder.js');
 
 var transport = nodemailer.createTransport({
   service: "Gmail",
