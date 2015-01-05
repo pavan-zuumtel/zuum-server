@@ -136,7 +136,7 @@ app.post('/fromManheim', function(request, response) {
     }
   }
   */
-  tagRef.off("value", sms.sendSMS);
+  // tagRef.off("value", sms.sendSMS);
   response.end();
 });
 
