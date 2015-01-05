@@ -94,7 +94,7 @@ app.post('/fromManheim', function(request, response) {
     response.end();
   }
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
-  tagRef.on("value", parameters, sms.sendSMS);
+  tagRef.on("value", sms.sendSMS, parameters);
 
   /*
   function sendSMS(snapshot) {
