@@ -12,7 +12,7 @@ var transport = nodemailer.createTransport({
 var carrierSMTPFormat = {
   "AT&T": "@txt.att.net",
   "Sprint": "@pm.sprint.com",
-  "T-mobile": "@tmomail.ner",
+  "T-mobile": "@tmomail.net",
   "Verizon": "@vtext.com"
 };
 
