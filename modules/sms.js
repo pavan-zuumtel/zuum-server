@@ -58,3 +58,4 @@ var sendSMS = function(snapshot, parameters) {
   }
 };
 
+exports.sendSMS = sendSMS;
