@@ -1,8 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Firebase = require('firebase');
-var nodemailer = require('nodemailer');
-var decoder = require('./apis/edmunds/decoder.js');
+var sms = require('./modules/sms.js');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
@@ -103,7 +102,7 @@ app.post('/fromManheim', function(request, response) {
   var message = '';
   var carSpecs, year, make, model, trim;
 
-  if (mobileNumber.trim().length != 10) {
+  if (parameters.mobileNumber.trim().length != 10) {
     // Only checks the length of the number but not whether it contains chars or numbers 
     response.end("Not a valid number");
 }
@@ -113,8 +112,9 @@ app.post('/fromManheim', function(request, response) {
     response.end();
   }
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
-  tagRef.on("value", sendSMS, parameters);
+  tagRef.on("value", sms.sendSMS, parameters);
 
+  /*
   function sendSMS(snapshot) {
     var carInfo = snapshot.val();
     if (carInfo !== null) {
@@ -154,7 +154,8 @@ app.post('/fromManheim', function(request, response) {
       });
     }
   }
-  tagRef.off("value", sendSMS);
+  */
+  tagRef.off("value", sms.sendSMS);
   response.end();
 });
 
