@@ -59,6 +59,7 @@ app.post('/', function(request, response) {
       'RSSI': carInfo[RSSI]
     });
   }
+  console.log("Hey");
 
   response.end();
 
