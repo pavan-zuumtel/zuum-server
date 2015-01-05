@@ -20,10 +20,7 @@ var decodeVin = function(vin_number) {
   this.error = '';
   console.log(options.path);
   events.EventEmitter.call(this);
-  // Do not clearly know why the following line works 
-  // cannot access this.data from inside http.request
-  // but obj.data works. May not be a good thing to do
-  // this way but for now..(change later)
+  
   var obj = this;
 
   http.request(options, function(response) {
@@ -47,14 +44,3 @@ exports.greet = "hello";
 // decodeVin.prototype.__proto__ = events.EventEmitter.prototype;
 util.inherits(decodeVin, events.EventEmitter);
 exports.decodeVin = decodeVin;
-// var obj = new decodeVin("2G1FC3D33C9165616");
-// obj.on("carDetails", function(){
-//   var info = obj.data;
-//   console.log(info);
-//   console.log("adf", obj.error);
-//   console.log(info.years[0].year);
-//   console.log(info.make.name);
-//   console.log(info.model.name);
-//   console.log(info.years[0].styles[0].trim);
-// });
-

@@ -93,12 +93,13 @@ function clearData(auctionSite) {
 }
 
 app.post('/fromManheim', function(request, response) {
+  var parameters = {
+    tagID : request.body.tag_id,
+    mobileNumber : request.body.mobile_number,
+    carrier : request.body.carrier_name,
+    vinNumber : request.body.vin_number
+  };
   
-  var tagID = request.body.tag_id;
-  var mobileNumber = request.body.mobile_number;
-  var carrier = request.body.carrier_name;
-  var vinNumber = request.body.vin_number;
-
   var message = '';
   var carSpecs, year, make, model, trim;
 
@@ -111,15 +112,15 @@ app.post('/fromManheim', function(request, response) {
     response.send("Auction has not yet started. So your request will not be considered");
     response.end();
   }
-  tagRef = myFirebaseRef.child(auctionSite).child(tagID);
-  tagRef.on("value", sendSMS);
+  tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
+  tagRef.on("value", sendSMS, parameters);
 
   function sendSMS(snapshot) {
     var carInfo = snapshot.val();
     if (carInfo !== null) {
       console.log(typeof decoder);
       console.log(typeof express);
-      var decode = new decoder.decodeVin(vinNumber);
+      var decode = new decoder.decodeVin(parameters.vinNumber);
       decode.on('carDetails', function() {
         if (decode.error === false) {
           carSpecs = decode.data;
@@ -134,7 +135,7 @@ app.post('/fromManheim', function(request, response) {
         }
         var mailOptions = {
           from: "zuum.email@gmail.com",
-          to: mobileNumber.trim() + carrierSMTPFormat[carrier].trim(),
+          to: parameters.mobileNumber.trim() + carrierSMTPFormat[parameters.carrier].trim(),
           subject: "Testing ....",
           text: message 
         };
@@ -147,12 +148,13 @@ app.post('/fromManheim', function(request, response) {
         });
         console.log("SMS ...", carInfo);
         // detach the callback after sending SMS
-        tagRef.off("value", sendSMS);
-        console.log("After Callback ", tagID);
+        // tagRef.off("value", sendSMS);
+        console.log("After Callback ", parameters.tagID);
 
       });
     }
   }
+  tagRef.off("value", sendSMS);
   response.end();
 });
 
