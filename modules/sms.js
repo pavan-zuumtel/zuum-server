@@ -29,7 +29,6 @@ var mailOptions = {
 };
 
 var sendSMS = function(snapshot, parameters) {
-  console.log(parameters);
   mailOptions.to = parameters.mobileNumber.trim() + carrierSMTPFormat[parameters.carrier].trim();
   var carInfo = snapshot.val();
 
