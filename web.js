@@ -30,6 +30,8 @@ app.post('/', function(request, response) {
   // store the required POST data in an array where each cell corresponds
   // to the info of a particular tag/car. 
   // response.send(request.body.field_values);
+  console.log(typeof request.body);
+  console.log(request.body);
   cars_info = request.body.field_values.split("\n");
   cars_info.pop();	// last element is an empty string
   auctionSite = request.body.mac_address.split('"').join("");
@@ -81,9 +83,6 @@ app.post('/fromManheim', function(request, response) {
     vinNumber : request.body.vin_number
   };
   
-  var message = '';
-  var carSpecs, year, make, model, trim;
-
   if (parameters.mobileNumber.trim().length != 10) {
     // Only checks the length of the number but not whether it contains chars or numbers 
     response.end("Not a valid number");
