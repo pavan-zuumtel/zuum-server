@@ -29,7 +29,6 @@ app.post('/', function(request, response) {
   
   // store the required POST data in an array where each cell corresponds
   // to the info of a particular tag/car. 
-  // response.send(request.body.field_values);
   cars_info = request.body.field_values.split("\n");
   cars_info.pop();	// last element is an empty string
   auctionSite = request.body.mac_address.split('"').join("");
@@ -59,8 +58,6 @@ app.post('/', function(request, response) {
       'RSSI': carInfo[RSSI]
     });
   }
-  console.log("Hey");
-
   response.end();
 
 });
@@ -95,9 +92,8 @@ app.post('/fromManheim', function(request, response) {
     sms.sendSMS(snapshot, parameters);
   });
 
-  console.log("hello");
   tagRef.off("value", sms.sendSMS);
-  response.end();
+  response.end("success");
 });
 
 app.listen(app.get('port'), function() {
