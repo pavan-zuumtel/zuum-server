@@ -1,17 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Firebase = require('firebase');
-var sms = require('./modules/sms.js');
+var zuumFire = reqire('./modules/zuumfire.js');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
-var auctionSite = "AuctionSite-1";	// Associate the mac_address of the reader at a place
-var readerId;	// stores the ref to the reader/auctions location
-
-var allReaders = [];	// list of all readers cuurrently in auction
-
-myFirebaseRef.remove();
-var auctionStarted = false;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -32,49 +24,15 @@ app.post('/', function(request, response) {
   // to the info of a particular tag/car. 
   cars_info = request.body.field_values.split("\n");
   cars_info.pop();	// last element is an empty string
-  // auctionSite = request.body.mac_address.split('"').join("");
-  if (auctionStarted === false) {
-    // If this is the first time, a reader is sending data, it
-    // probably means the auction has started. So delete all the
-    // data sent by this reader after 8 hrs.
-    readerId = myFirebaseRef.child(auctionSite);
-    setTimeout(clearData, 60*1000, auctionSite);
-    
-    auctionStarted = true;
-    // allReaders.push(auctionSite); 
-  }
 
-  var antenna_id = 0;
-  var epc = 1;
-  var first_seen_time = 2;
-  var RSSI = 3;
-  for (var eachCar in cars_info) {
-    // eachCar will be in the form of"antenna_id,"epc",ts,RSSI"
-    carInfo = cars_info[eachCar].split(",");
-    carID = carInfo[epc].split('"').join("");
+  zuumFire.sendData(cars_info);
 
-    readerId.child(carID).set({
-      'Antennaid': carInfo[antenna_id],
-      // divide the ts received by 1000 in order to work with Date() (Not sure if this is the best way to do but for now ...)
-      'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toLocaleString(),
-      'RSSI': carInfo[RSSI]
-    });
-  }
   response.end();
 
 });
 
-function clearData(auctionSite) {
-  ref = new Firebase(myFirebaseRef + '/' + auctionSite);
-  console.log("time to clear");
-  ref.remove();
-
-  auctionStarted = false;
-  // ind = allReaders.indexOf(auctionSite);
-  // allReaders.splice(ind, 1);
-}
-
 app.post('/fromManheim', function(request, response) {
+
   var parameters = {
     tagID : request.body.tag_id,
     mobileNumber : request.body.mobile_number,
@@ -85,21 +43,9 @@ app.post('/fromManheim', function(request, response) {
   if (parameters.mobileNumber.trim().length != 10) {
     // Only checks the length of the number but not whether it contains chars or numbers 
     response.end("Not a valid number");
-}
-
-  if (auctionSite === false) {
-    response.send("Auction has not yet started. So your request will not be considered");
-    response.end();
   }
-  tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
-  ref = tagRef.on("value", function(snapshot, prevChildName) {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-      console.log("hi");
-      // sms.sendSMS(snapshot, parameters);
-      tagRef.off("value", ref);
-    }
-  });
+
+  zuumFire.contactClient(parameters);
 
   response.end("success");
 });
