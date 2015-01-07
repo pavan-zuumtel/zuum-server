@@ -96,7 +96,7 @@ app.post('/fromManheim', function(request, response) {
     console.log("hi");
     // sms.sendSMS(snapshot, parameters);
   });
-  tagRef.off("value", off);
+  tagRef.off("value", ref);
 
   response.end("success");
 });
