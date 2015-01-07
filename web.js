@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var zuumFire = require('./modules/zuumfire.js');
 
 var app = express();
-var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
