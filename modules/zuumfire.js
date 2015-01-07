@@ -60,8 +60,9 @@ function clearData(auctionSite) {
 var contactClient = function (parameters) {
   var resp;
 
-  if (auctionSite === false) {
+  if (auctionStarted === false) {
     resp = "Auction has not yet started. So your request will not be considered";
+    myFirebaseRef.remove(); // Just clear data if present from yesterday's auction
     return resp;
   }
 
@@ -70,7 +71,7 @@ var contactClient = function (parameters) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
-      // sms.sendSMS(snapshot, parameters);
+      sms.sendSMS(snapshot, parameters);
       tagRef.off("value", ref);
     }
   });

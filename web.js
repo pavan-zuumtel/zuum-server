@@ -44,9 +44,9 @@ app.post('/fromManheim', function(request, response) {
     response.end("Not a valid number");
   }
 
-  zuumFire.contactClient(parameters);
+  var resp = zuumFire.contactClient(parameters);
 
-  response.end("success");
+  response.end(resp);
 });
 
 app.listen(app.get('port'), function() {
