@@ -61,9 +61,9 @@ var contactClient = function (parameters) {
   var resp;
 
   if (auctionStarted === false) {
-    resp = "Auction has not yet started. So your request will not be considered";
+    // resp = "Auction has not yet started. So your request will not be considered";
     myFirebaseRef.remove(); // Just clear data if present from yesterday's auction
-    return resp;
+    // return resp;
   }
 
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
