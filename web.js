@@ -92,10 +92,12 @@ app.post('/fromManheim', function(request, response) {
   }
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
   ref = tagRef.on("value", function(snapshot, prevChildName) {
-    console.log(snapshot.val());
-    console.log("hi");
-    // sms.sendSMS(snapshot, parameters);
-    tagRef.off("value", ref);
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      console.log("hi");
+      // sms.sendSMS(snapshot, parameters);
+      tagRef.off("value", ref);
+    }
   });
 
   response.end("success");
