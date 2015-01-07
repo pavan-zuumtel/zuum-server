@@ -1,5 +1,5 @@
 var Firebase = require('firebase');
-var sms = require('sms.js');
+var sms = require('./sms.js');
 
 var firebase_url = "https://flickering-heat-3988.firebaseio.com/";
 var myFirebaseRef = new Firebase(firebase_url);
