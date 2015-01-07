@@ -92,9 +92,9 @@ app.post('/fromManheim', function(request, response) {
     console.log(snapshot.val());
     console.log("hi");
     // sms.sendSMS(snapshot, parameters);
+    tagRef.off("value", sms.sendSMS);
   });
 
-  tagRef.off("value", sms.sendSMS);
   response.end("success");
 });
 
