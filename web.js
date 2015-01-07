@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var zuumFire = reqire('./modules/zuumfire.js');
+var zuumFire = require('./modules/zuumfire.js');
 
 var app = express();
 var myFirebaseRef = new Firebase("https://flickering-heat-3988.firebaseio.com/");
