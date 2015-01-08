@@ -4,7 +4,7 @@ var sms = require('./sms.js');
 var firebase_url = "https://flickering-heat-3988.firebaseio.com/";
 var myFirebaseRef = new Firebase(firebase_url);
 
-var auctionSite = "AuctionSite-1";	// Associate the mac_address of the reader at a place
+var auctionSite = "AuctionSite-1";
 var readerId;	// stores the ref to the reader/auctions location
 
 var auctionStarted = false;
@@ -37,8 +37,10 @@ var sendData = function(cars_info) {
 
     readerId.child(carID).set({
       'Antennaid': carInfo[antenna_id],
-      // divide the ts received by 1000 in order to work with Date() (Not sure if this is the best way to do but for now ...)
-      'First_seen_time': (new Date(parseInt(carInfo[first_seen_time])/1000)).toLocaleString(),
+      // divide the ts received by 1000 in order to work with Date()
+      // (Not sure if this is the best way to do but for now ...)
+      'First_seen_time': 
+        (new Date(parseInt(carInfo[first_seen_time])/1000)).toLocaleString(),
       'RSSI': carInfo[RSSI]
     });
   }
@@ -61,8 +63,9 @@ var contactClient = function (parameters) {
   var resp;
 
   if (auctionStarted === false) {
-    // resp = "Auction has not yet started. So your request will not be considered";
-    myFirebaseRef.remove(); // Just clear data if present from yesterday's auction
+    // resp = 'Auction has not yet started. So your request will not be' + 
+    // 'considered";
+    myFirebaseRef.remove(); // Just clear data if present from yesterday's auc.
     // return resp;
   }
 

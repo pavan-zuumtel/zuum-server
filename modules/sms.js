@@ -29,7 +29,8 @@ var mailOptions = {
 };
 
 var sendSMS = function(snapshot, parameters) {
-  mailOptions.to = parameters.mobileNumber.trim() + carrierSMTPFormat[parameters.carrier].trim();
+  mailOptions.to = parameters.mobileNumber.trim() + 
+                   carrierSMTPFormat[parameters.carrier].trim();
   var carInfo = snapshot.val();
 
   if (carInfo !== null) {
@@ -42,9 +43,12 @@ var sendSMS = function(snapshot, parameters) {
         model = carSpecs.model.name;
         trim = carSpecs.years[0].styles[0].trim;
 
-        mailOptions.text = "Your " + year + ' ' + make + ' ' + model + ' ' + trim + "has entered the building at lane 1 at " + carInfo.First_seen_time; 
+        mailOptions.text = "Your " + year + ' ' + make + ' ' + model + ' ' + 
+                            trim + "has entered the building at lane 1 at " +
+                            carInfo.First_seen_time; 
       } else {
-        mailOptions.text = "The car you are interested in has entered the building at lane 1 at " + carInfo.First_seen_time;
+        mailOptions.text = 'The car you are interested in has entered the' +
+                           'building at lane 1 at ' + carInfo.First_seen_time;
       }
 
       transport.sendMail(mailOptions, function(error, response) {

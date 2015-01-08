@@ -40,7 +40,8 @@ app.post('/fromManheim', function(request, response) {
   };
   
   if (parameters.mobileNumber.trim().length != 10) {
-    // Only checks the length of the number but not whether it contains chars or numbers 
+    // Only checks the length of the number but not whether it contains chars
+    // or numbers 
     response.end("Not a valid number");
   }
 
