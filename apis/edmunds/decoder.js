@@ -14,7 +14,7 @@ var options = {
 };
 
 var decodeVin = function(vin_number) {
-  this.path = endpoint + vin_number + '?fmt=' +fmt + '&api_key=' + api_key;
+  this.path = endpoint + vin_number + '?fmt=' + fmt + '&api_key=' + api_key;
   options.path = this.path;
   this.data = '';
   this.error = '';
@@ -39,7 +39,6 @@ var decodeVin = function(vin_number) {
     }
   }).end();
 };
-exports.greet = "hello";
 
 // decodeVin.prototype.__proto__ = events.EventEmitter.prototype;
 util.inherits(decodeVin, events.EventEmitter);

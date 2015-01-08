@@ -59,7 +59,7 @@ function clearData(auctionSite) {
 }
 
 
-var contactClient = function (parameters) {
+var contactClient = function(parameters) {
   var resp;
 
   if (auctionStarted === false) {
