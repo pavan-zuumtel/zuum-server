@@ -47,7 +47,7 @@ var sendData = function(cars_info) {
 };
 
 function clearData(auctionSite) {
-  ref = new Firebase(myFirebaseRef + '/' + auctionSite);
+  ref = new Firebase(firebase_url + auctionSite);
   console.log("time to clear");
   ref.remove();
 
