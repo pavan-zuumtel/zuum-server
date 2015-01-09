@@ -42,7 +42,7 @@ var sendData = function(cars_info) {
       // divide the ts received by 1000 in order to work with Date()
       // (Not sure if this is the best way to do but for now ...)
       'First_seen_time': moment(parseInt(carInfo[first_seen_time]
-)/1000).tz(timeZone).format(),
+)).tz(timeZone).format(),
       'RSSI': carInfo[RSSI]
     });
   }
