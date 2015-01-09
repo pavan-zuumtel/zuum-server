@@ -70,7 +70,7 @@ var contactClient = function(parameters) {
   }
 
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
-  ref = tagRef.on("value", function(snapshot, prevChildName) {
+  ref = tagRef.on("value", function(snapshot) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
