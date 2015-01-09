@@ -41,8 +41,8 @@ var sendData = function(cars_info) {
       'Antennaid': carInfo[antenna_id],
       // divide the ts received by 1000 in order to work with Date()
       // (Not sure if this is the best way to do but for now ...)
-      'First_seen_time': moment(carInfo[first_seen_time]
-).tz(timeZone).format(),
+      'First_seen_time': moment(parseInt(carInfo[first_seen_time]
+)).tz(timeZone).format(),
       'RSSI': carInfo[RSSI]
     });
   }
