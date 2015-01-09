@@ -1,5 +1,6 @@
 var Firebase = require('firebase');
 var sms = require('./sms.js');
+var moment = require('moment-timezone');
 
 var firebase_url = "https://flickering-heat-3988.firebaseio.com/";
 var myFirebaseRef = new Firebase(firebase_url);
@@ -14,6 +15,7 @@ var epc = 1;
 var first_seen_time = 2;
 var RSSI = 3;
 
+var timeZone = 'America/Los_Angeles';
 
 var sendData = function(cars_info) {
 
@@ -39,8 +41,8 @@ var sendData = function(cars_info) {
       'Antennaid': carInfo[antenna_id],
       // divide the ts received by 1000 in order to work with Date()
       // (Not sure if this is the best way to do but for now ...)
-      'First_seen_time': 
-        (new Date(parseInt(carInfo[first_seen_time])/1000)).toLocaleString(),
+      'First_seen_time': moment(parseInt(carInfo[first_seen_time]
+)/1000).tz(timeZone).format(),
       'RSSI': carInfo[RSSI]
     });
   }
