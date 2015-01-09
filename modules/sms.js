@@ -45,7 +45,8 @@ var sendSMS = function(snapshot, parameters) {
 
         mailOptions.text = "Your " + year + ' ' + make + ' ' + model + ' ' + 
                             trim + "has entered the building at lane 1 at " +
-                            carInfo.First_seen_time; 
+                            carInfo.First_seen_time + 'and tagID: ' + 
+                            parameters.tagID ; 
       } else {
         mailOptions.text = 'The car you are interested in has entered the' +
                            'building at lane 1 at ' + carInfo.First_seen_time;
