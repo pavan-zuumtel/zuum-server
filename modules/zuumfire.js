@@ -44,8 +44,6 @@ var sendData = function(cars_info) {
       'RSSI': carInfo[RSSI]
     });
   }
-
-
 };
 
 function clearData(auctionSite) {
