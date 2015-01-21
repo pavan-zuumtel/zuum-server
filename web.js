@@ -32,6 +32,8 @@ app.post('/', function(request, response) {
 
 app.post('/fromManheim', function(request, response) {
 
+  console.log(request);
+
   var parameters = {
     tagID : request.body.tag_id,
     mobileNumber : request.body.mobile_number,
