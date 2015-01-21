@@ -32,14 +32,14 @@ app.post('/', function(request, response) {
 
 app.post('/fromManheim', function(request, response) {
 
-  console.log(request);
-
   var parameters = {
     tagID : request.body.tag_id,
     mobileNumber : request.body.mobile_number,
     carrier : request.body.carrier_name,
     vinNumber : request.body.vin_number
   };
+
+  console.log(parameters);
   
   if (parameters.mobileNumber.trim().length != 10) {
     // Only checks the length of the number but not whether it contains chars
