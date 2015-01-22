@@ -28,6 +28,7 @@ var decodeVin = function(vin_number) {
       obj.data += chunk;
     });
     response.on('end', function() {
+      console.log("Yo:", obj.data);
       obj.data = JSON.parse(obj.data);
       obj.emit('carDetails');
     });
