@@ -36,6 +36,9 @@ var sendData = function(cars_info) {
     // eachCar will be in the form of"antenna_id,"epc",ts,RSSI"
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
+    carID = carID.splice(carID.lastIndexOf("0000") + 4);
+    console.log("see:", carID);
+
 
     readerId.child(carID).set({
       'Antennaid': carInfo[antenna_id],
