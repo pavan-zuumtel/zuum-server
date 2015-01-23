@@ -37,7 +37,7 @@ var sendData = function(cars_info) {
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
     
-    carID = carID.slice(carID.lastIndexOf("00") + 2);
+    carID = removeStartingZeros(carID);
     console.log("see:", carID);
 
 
@@ -60,6 +60,17 @@ function clearData(auctionSite) {
   auctionStarted = false;
   // ind = allReaders.indexOf(auctionSite);
   // allReaders.splice(ind, 1);
+}
+
+function removeStartingZeros(str) {
+  var eachChar = 0;
+
+  for (eachChar in str) {
+    if(str[eachChar] != '0') {
+      break;
+    }
+  }
+  return str.slice(eachChar);
 }
 
 
