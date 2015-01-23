@@ -37,7 +37,7 @@ var sendData = function(cars_info) {
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
     
-    carID = carID.slice(carID.lastIndexOf("00") + 22);
+    carID = carID.slice(carID.lastIndexOf("00") + 2);
     console.log("see:", carID);
 
 
