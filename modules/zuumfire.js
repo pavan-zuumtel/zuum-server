@@ -36,10 +36,8 @@ var sendData = function(cars_info) {
     // eachCar will be in the form of"antenna_id,"epc",ts,RSSI"
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
-    console.log("af:" + typeof carID + "id:" + carID);
-    a = "as";
     
-    carID = carID.splice(carID.lastIndexOf("0000") + 4);
+    carID = carID.slice(carID.lastIndexOf("0000") + 4);
     console.log("see:", carID);
 
 
