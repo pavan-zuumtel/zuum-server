@@ -39,6 +39,7 @@ app.post('/fromManheim', function(request, response) {
     vinNumber : request.body.vin_number
   };
 
+  console.log("Inside /fromManheiem");
   console.log(parameters);
   
   if (parameters.mobileNumber.trim().length != 10) {
