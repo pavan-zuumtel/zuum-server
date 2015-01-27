@@ -48,7 +48,23 @@ app.post('/fromManheim', function(request, response) {
     response.end("Not a valid number");
   }
 
+  // check if there is a cancel request for the tagID by this user.
+  // In scenarios where a user follows a tag, then cancels/unfollow and then 
+  // follows it. Remove if there was a cancelRequest
+  zuumFire.checkCancelRequests(parameters);
   var resp = zuumFire.contactClient(parameters);
+
+  response.end(resp);
+});
+
+app.post('/unFollow', function(request, response) {
+  
+  var cancelDetails = {
+    mobileNumber: request.body.mobile_number.trim(),
+    tagID: request.body.tagID.trim()
+  };
+
+  var resp = zuumFire.cancelReq(cancelDetails);
 
   response.end(resp);
 });
