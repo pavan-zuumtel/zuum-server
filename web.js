@@ -61,8 +61,9 @@ app.post('/unFollow', function(request, response) {
   
   var cancelDetails = {
     mobileNumber: request.body.mobile_number.trim(),
-    tagID: request.body.tagID.trim()
+    tagID: request.body.tag_id.trim()
   };
+  console.log(cancelDetails);
 
   var resp = zuumFire.cancelReq(cancelDetails);
 
