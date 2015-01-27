@@ -15,6 +15,15 @@ var epc = 1;
 var first_seen_time = 2;
 var RSSI = 3;
 
+// Store the details of cancel requests in the following way:
+// {
+//    mobileNumber1 : {tagID: true },
+//    mobileNumber2: {tagID1: true, tagID2: ..},
+//
+// }
+// So before sending an sms, check if he submitted a cancel req.
+var cancelRequests = {};
+
 var timeZone = 'America/Los_Angeles';
 
 var sendData = function(cars_info) {
@@ -89,7 +98,17 @@ var contactClient = function(parameters) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
-      sms.sendSMS(snapshot, parameters);
+      // check to see if the user has later decided to unfollow the tag and
+      // submitted a cancel/unfollow request
+      if (cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
+        var cancelIds = cancelRequests[parameters.mobileNumber];
+        if(!cancelIds.hasOwnProperty(parameters.tagID)) {
+          // No cancel req. for this tagId. so send sms
+          sms.sendSMS(snapshot, parameters);
+        }
+      } else {
+        sms.sendSMS(snapshot, parameters);
+      }
       tagRef.off("value", ref);
     }
   });
@@ -97,5 +116,37 @@ var contactClient = function(parameters) {
   return resp;
 };
 
+var cancelReq = function(cancelDetails) {
+  var mobileNumber = cancelDetails.mobileNumber;
+  var tagID = cancelDetails.tagID;
+  var discardedTagIds = {};
+
+  if(cancelRequests.hasOwnProperty(mobileNumber)) {
+    discardedTagIds = cancelRequests[mobileNumber];
+    discardedTagIds[tagID] = true;  //
+    console.log("discarded some tagID");
+  } else {
+    discardedTagIds[tagID] = true;
+    cancelRequests[mobileNumber] = discardedTagIds;
+  }
+
+  return "SUCCESS";
+};
+
+var checkCancelRequests = function(parameters) {
+  var mobileNumber = parameters.mobileNumber.trim();
+  var tagID = parameters.mobileNumber.trim();
+  var discardedTagIds;
+  console.log("IN checkCancelRequests");
+
+  if(cancelRequests.hasOwnProperty(mobileNumber)) {
+    discardedTagIds = cancelRequests[mobileNumber];
+    delete discardedTagIds[tagID];
+  }
+   
+};
+
 exports.sendData = sendData;
 exports.contactClient = contactClient;
+exports.cancelReq = cancelReq;
+exports.checkCancelRequests = checkCancelRequests;
