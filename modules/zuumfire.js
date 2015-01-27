@@ -2,7 +2,7 @@ var Firebase = require('firebase');
 var sms = require('./sms.js');
 var moment = require('moment-timezone');
 
-var firebase_url = "https://flickering-heat-3988.firebaseio.com/";
+var firebase_url = "https://zuumtelserver.firebaseio.com/";
 var myFirebaseRef = new Firebase(firebase_url);
 
 var auctionSite = "AuctionSite-1";
