@@ -98,16 +98,19 @@ var contactClient = function(parameters) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
-      console.log(cancelRequests.hasOwnProperty(parameters.tagID));
+      console.log(cancelRequests.hasOwnProperty(parameters.mobileNumber));
       // check to see if the user has later decided to unfollow the tag and
       // submitted a cancel/unfollow request
       if (cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
         var cancelIds = cancelRequests[parameters.mobileNumber];
         console.log("dsdsdsenf");
+        console.log(cancelIds.hasOwnProperty(parameters.tagID));
         if(!cancelIds.hasOwnProperty(parameters.tagID)) {
           // No cancel req. for this tagId. so send sms
           console.log("ssend...");
           sms.sendSMS(snapshot, parameters);
+        } else {
+          // delete cancelIds[parameters.tagID];
         }
       } else if (!cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
         console.log("snnnd");

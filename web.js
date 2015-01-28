@@ -51,7 +51,7 @@ app.post('/fromManheim', function(request, response) {
   // check if there is a cancel request for the tagID by this user.
   // In scenarios where a user follows a tag, then cancels/unfollow and then 
   // follows it. Remove if there was a cancelRequest
-  // zuumFire.checkCancelRequests(parameters);
+  zuumFire.checkCancelRequests(parameters);
   var resp = zuumFire.contactClient(parameters);
 
   response.end(resp);
