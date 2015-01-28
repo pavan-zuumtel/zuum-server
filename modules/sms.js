@@ -33,6 +33,8 @@ var sendSMS = function(snapshot, parameters) {
                    carrierSMTPFormat[parameters.carrier].trim();
   var carInfo = snapshot.val();
 
+  /* We will not be using Edmunds api for now(not necessary)
+   *
   if (carInfo !== null) {
     var decodeVin = new decoder.decodeVin(parameters.vinNumber);    
     decodeVin.on('carDetails', function() {
@@ -60,6 +62,21 @@ var sendSMS = function(snapshot, parameters) {
         }
       });
     });
+  }*/
+
+  if (carinfo !== null) {
+    mailOptions.text = "Your " + parameters.year + ' ' + make + ' ' + model +
+                        ' ' + trim + " has entered the building at lane 1 at "+
+                       carInfo.First_seen_time + 'and tagID: ' + 
+                       parameters.tagID;
+
+    transport.sendMail(mailOptions, function(error, response) {
+      if(error) {
+        console.log(error);
+      } else {
+        console.log("Message sent: ", mailOptions.text);
+      }
+    }); 
   }
 };
 

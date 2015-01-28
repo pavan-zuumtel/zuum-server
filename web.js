@@ -36,7 +36,11 @@ app.post('/fromManheim', function(request, response) {
     tagID : request.body.tag_id,
     mobileNumber : request.body.mobile_number,
     carrier : request.body.carrier_name,
-    vinNumber : request.body.vin_number
+    vinNumber : request.body.vin_number,
+    make: request.body.make,
+    model: request.body.model,
+    year: request.body.year,
+    trim: rquest.body.trim
   };
 
   console.log("Inside /fromManheiem");
