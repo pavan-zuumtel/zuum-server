@@ -30,12 +30,16 @@ var decodeVin = function(vin_number) {
     response.on('end', function() {
       console.log("Yo:", obj.data);
       console.log(typeof obj.data);
-      // obj.data = JSON.parse(obj.data);
+      try {
+        obj.data = JSON.parse(obj.data);
+      } catch(e) {
+        console.log("JSOn parse error Edmunds"); 
+      }
       obj.emit('carDetails');
     });
 
 
-      console.log(response.getHeader('Content-Encoding'));
+    //  console.log(response.getHeader('Content-Encoding'));
     if(response.statusCode != 200) {
       console.log("Error from decodeVin");
       obj.error = true;
