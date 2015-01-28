@@ -37,6 +37,7 @@ var sendSMS = function(snapshot, parameters) {
   var make = parameters.make;
   var model = parameters.model;
   var trim = parameters.trim;
+  var lane = parameters.lane;
 
   /* We will not be using Edmunds api for now(not necessary)
    *
@@ -71,7 +72,8 @@ var sendSMS = function(snapshot, parameters) {
 
   if (carInfo !== null) {
     mailOptions.text = "Your " + year + ' ' + make + ' ' + model +
-                        ' ' + trim + " has entered the building at lane 1 at "+
+                        ' ' + trim + " has entered the building at lane" + 
+                       lane + " at "+
                        carInfo.First_seen_time + 'and tagID: ' + 
                        parameters.tagID;
 
