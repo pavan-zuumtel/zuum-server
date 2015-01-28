@@ -18,7 +18,7 @@ var carrierSMTPFormat = {
   "AT&T": "@txt.att.net",
   "Sprint": "@pm.sprint.com",
   "T-mobile": "@tmomail.net",
-  "Verizon": "@vtext.com"
+  "Verizon": "@vzwpix.com"
 };
 
 var mailOptions = {
