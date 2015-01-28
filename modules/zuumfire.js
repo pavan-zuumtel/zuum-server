@@ -132,10 +132,12 @@ var cancelReq = function(cancelDetails) {
   if(cancelRequests.hasOwnProperty(mobileNumber)) {
     discardedTagIds = cancelRequests[mobileNumber];
     discardedTagIds[tagID] = true;  //
-    console.log("discarded some tagID");
+    console.log("Got the request for cancelling sms for ", tagID);
+    console.log(cancelRequests);
   } else {
     discardedTagIds[tagID] = true;
     cancelRequests[mobileNumber] = discardedTagIds;
+    console.log(cancelRequests);
   }
 
   return "SUCCESS";
