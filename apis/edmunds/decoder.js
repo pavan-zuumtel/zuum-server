@@ -29,13 +29,17 @@ var decodeVin = function(vin_number) {
     });
     response.on('end', function() {
       console.log("Yo:", obj.data);
+      console.log(typeof obj.data);
+      console.log(response.getHeader('Content-Encoding'));
       obj.data = JSON.parse(obj.data);
       obj.emit('carDetails');
     });
 
     if(response.statusCode != 200) {
+      console.log("Error from decodeVin");
       obj.error = true;
     } else {
+      console.log("No error from decodeVin");
       obj.error = false;
     }
   }).end();
