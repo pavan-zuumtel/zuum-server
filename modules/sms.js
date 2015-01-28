@@ -36,7 +36,7 @@ var sendSMS = function(snapshot, parameters) {
   var year = parameters.year;
   var make = parameters.make;
   var model = parameters.model;
-  var trim = parameters.model;
+  var trim = parameters.trim;
 
   /* We will not be using Edmunds api for now(not necessary)
    *
