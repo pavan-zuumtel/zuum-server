@@ -109,10 +109,8 @@ var contactClient = function(parameters) {
           // No cancel req. for this tagId. so send sms
           console.log("ssend...");
           sms.sendSMS(snapshot, parameters);
-        } else {
-          // delete cancelIds[parameters.tagID];
-        }
-      } else if (!cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
+        } else { console.log("there is a cancelRequest for: ", parameters.tagID);} 
+      } else { 
         console.log("snnnd");
         sms.sendSMS(snapshot, parameters);
       }
@@ -137,6 +135,7 @@ var cancelReq = function(cancelDetails) {
   } else {
     discardedTagIds[tagID] = true;
     cancelRequests[mobileNumber] = discardedTagIds;
+    console.log("Got the request for cancelling sms for ", tagID);
     console.log(cancelRequests);
   }
 
