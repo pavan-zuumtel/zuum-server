@@ -64,7 +64,7 @@ var sendSMS = function(snapshot, parameters) {
     });
   }*/
 
-  if (carinfo !== null) {
+  if (carInfo !== null) {
     mailOptions.text = "Your " + parameters.year + ' ' + make + ' ' + model +
                         ' ' + trim + " has entered the building at lane 1 at "+
                        carInfo.First_seen_time + 'and tagID: ' + 
