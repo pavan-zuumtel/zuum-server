@@ -30,7 +30,7 @@ var decodeVin = function(vin_number) {
     response.on('end', function() {
       console.log("Yo:", obj.data);
       console.log(typeof obj.data);
-      obj.data = JSON.parse(obj.data);
+      // obj.data = JSON.parse(obj.data);
       obj.emit('carDetails');
     });
 
