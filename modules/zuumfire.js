@@ -103,12 +103,13 @@ var contactClient = function(parameters) {
       // submitted a cancel/unfollow request
       if (cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
         var cancelIds = cancelRequests[parameters.mobileNumber];
+        console.log("dsdsdsenf");
         if(!cancelIds.hasOwnProperty(parameters.tagID)) {
           // No cancel req. for this tagId. so send sms
           console.log("ssend...");
           sms.sendSMS(snapshot, parameters);
         }
-      } else {
+      } else if (!cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
         console.log("snnnd");
         sms.sendSMS(snapshot, parameters);
       }
