@@ -143,8 +143,8 @@ var cancelReq = function(cancelDetails) {
 };
 
 var checkCancelRequests = function(parameters) {
-  var mobileNumber = parameters.mobileNumber.trim();
-  var tagID = parameters.mobileNumber.trim();
+  var mobileNumber = parameters.mobileNumber;
+  var tagID = parameters.tagID;
   var discardedTagIds;
   console.log("IN checkCancelRequests");
 

@@ -33,8 +33,8 @@ app.post('/', function(request, response) {
 app.post('/fromManheim', function(request, response) {
 
   var parameters = {
-    tagID : request.body.tag_id,
-    mobileNumber : request.body.mobile_number,
+    tagID : request.body.tag_id.trim(),
+    mobileNumber : request.body.mobile_number.trim(),
     carrier : request.body.carrier_name,
     vinNumber : request.body.vin_number,
     make: request.body.make,
