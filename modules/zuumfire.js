@@ -98,6 +98,7 @@ var contactClient = function(parameters) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
+      console.log(cancelIds.hasOwnProperty(parameters.tagID));
       // check to see if the user has later decided to unfollow the tag and
       // submitted a cancel/unfollow request
       if (cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
