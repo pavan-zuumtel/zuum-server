@@ -151,6 +151,7 @@ var checkCancelRequests = function(parameters) {
     discardedTagIds = cancelRequests[mobileNumber];
     console.log("deleting ..", tagID);
     delete discardedTagIds[tagID];
+    console.log(cancelRequests);
   }
    
 };
