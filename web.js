@@ -40,7 +40,7 @@ app.post('/fromManheim', function(request, response) {
     make: request.body.make,
     model: request.body.model,
     year: request.body.year,
-    trim: rquest.body.trim
+    trim: request.body.trim
   };
 
   console.log("Inside /fromManheiem");
