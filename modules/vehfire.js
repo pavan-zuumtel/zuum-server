@@ -4,7 +4,7 @@ var ref = new Firebase(veh_url);
 var vehichles;
 
 ref.on("value", function(snapshot) {
-  vehichles = snapshot.val();
+  vehichles = snapshot;
 }, function(error) {
     console.log("Read from vehichle database failed:", error.code);
 });
