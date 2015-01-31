@@ -16,6 +16,12 @@ var epc = 1;
 var first_seen_time = 2;
 var RSSI = 3;
 
+var tagSnapshot;
+
+myFirebaseRef.child(auctionSite).on('value', function(snapshot){
+  tagSnapshot = snapshot;
+});
+
 // Store the details of cancel requests in the following way:
 // {
 //    mobileNumber1 : {tagID: true },
@@ -51,7 +57,7 @@ var sendData = function(cars_info) {
     console.log("see:", carID);
 
     // check if the tagID/carID is actually from a car in our database
-    if(!vehfire.confirmTag(carID, carInfo[antenna_id]))
+    if(!vehfire.confirmTag(carID, carInfo[antenna_id]), tagSnapshot.hasChild(carID))
       continue;
 
 
