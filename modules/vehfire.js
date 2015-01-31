@@ -35,8 +35,6 @@ var confirmTag = function(tag_id, antenna_id, exists) {
     
     }
 
-
-
     return true;
   
   } else {
