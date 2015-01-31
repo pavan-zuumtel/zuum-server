@@ -1,6 +1,7 @@
 var Firebase = require('firebase');
 var sms = require('./sms.js');
 var moment = require('moment-timezone');
+var vehfire = require('./vehfire.js');
 
 var firebase_url = "https://zuumtelserver.firebaseio.com/";
 var myFirebaseRef = new Firebase(firebase_url);
@@ -48,6 +49,10 @@ var sendData = function(cars_info) {
     
     carID = removeStartingZeros(carID);
     console.log("see:", carID);
+
+    // check if the tagID/carID is actually from a car in our database
+    if(!vehfire.confirmTag(carID))
+      continue;
 
 
     readerId.child(carID).set({
