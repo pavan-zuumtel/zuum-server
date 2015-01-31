@@ -10,7 +10,6 @@ ref.on("value", function(snapshot) {
 });
 
 var confirmTag = function(tag_id) {
-  console.log("from vehfire:", vehichles);
   if (vehichles.hasChild(tag_id))
     return true;
   else
