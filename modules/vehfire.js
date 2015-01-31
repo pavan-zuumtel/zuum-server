@@ -5,7 +5,7 @@ var vehichles;
 var vehichles_data;
 
 
-var veh_lane_url = "https://zuumtel.firebaseio.com/auctions/cade/lanes"; 
+var veh_lane_url = "https://zuumtel.firebaseio.com/auctions/cade/lanes/"; 
 
 
 ref.on("value", function(snapshot) {
@@ -15,8 +15,23 @@ ref.on("value", function(snapshot) {
     console.log("Read from vehichle database failed:", error.code);
 });
 
-var confirmTag = function(tag_id) {
+var confirmTag = function(tag_id, antenna_id) {
   if (vehichles.hasChild(tag_id)) {
+    veh_info = vehichles_data[tag_id];
+    var lane = veh_info.lane;
+
+    console.log("antenna_id: ", antenna_id);
+    console.log("type:", typeof antenna_id);
+
+    if(lane == antenna_id) {
+      var url = veh_lane_url + lane + '/current_run';
+      var runRef = new Firebase(url);
+
+      runRef.transaction(function(current_run_no) {
+        return current_run_no + 1;
+      });
+    
+    }
 
 
 
