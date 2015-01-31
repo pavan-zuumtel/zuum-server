@@ -58,8 +58,7 @@ var sendData = function(cars_info) {
 
     // check if the tagID/carID is actually from a car in our database
     console.log("asf:", tagSnapshot.hasChild(carID));
-    var exists = tagSnapshot.hasChild(carID);
-    if(!vehfire.confirmTag(carID, carInfo[antenna_id]), exists);
+    if(!vehfire.confirmTag(carID, carInfo[antenna_id], tagSnapshot.hasChild(carID)))
       continue;
 
 
