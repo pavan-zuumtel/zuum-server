@@ -22,6 +22,7 @@ var confirmTag = function(tag_id, antenna_id) {
 
     console.log("antenna_id: ", antenna_id);
     console.log("type:", typeof antenna_id);
+    console.log("lane:", typeof lane);
 
     if(lane == antenna_id) {
       var url = veh_lane_url + lane + '/current_run';
