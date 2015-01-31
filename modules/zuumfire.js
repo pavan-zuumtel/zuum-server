@@ -51,7 +51,7 @@ var sendData = function(cars_info) {
     console.log("see:", carID);
 
     // check if the tagID/carID is actually from a car in our database
-    if(!vehfire.confirmTag(carID), carInfo[antenna_id])
+    if(!vehfire.confirmTag(carID, carInfo[antenna_id]))
       continue;
 
 
