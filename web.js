@@ -21,6 +21,7 @@ app.post('/', function(request, response) {
   
   // store the required POST data in an array where each cell corresponds
   // to the info of a particular tag/car. 
+  console.log("fv:", request.body.field_values);
   cars_info = request.body.field_values.split("\n");
   cars_info.pop();	// last element is an empty string
 
