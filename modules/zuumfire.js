@@ -143,7 +143,7 @@ var cancelReq = function(cancelDetails) {
   var tagID = cancelDetails.tagID;
   
   requestID = mobileNumber + tagID;
-  tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
+  tagRef = myFirebaseRef.child(auctionSite).child(cancelDetails.tagID);
   tagRef.off('value', cReqs[requestID]);
   /*
   var discardedTagIds = {};
