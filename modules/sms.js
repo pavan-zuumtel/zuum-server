@@ -22,7 +22,7 @@ var carrierSMTPFormat = {
 };
 
 var mailOptions = {
-  from: "zuum.email@gmail.com",
+  from: "Zuumtel",
   to: "",
   subject: "About the car you're interested at the auction",
   text: ""
