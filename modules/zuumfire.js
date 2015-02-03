@@ -114,9 +114,9 @@ var contactClient = function(parameters) {
       
       console.log("some ..");
       off = true;
-      // This function is called twice if the data already exists at this
+      // This callback is called twice if the data already exists at this
       // location(even after calling off). So, I'm using the variable off
-      // and calling off after thid callback and it seems to be working..
+      // and calling off after this callback and it seems to be working..
       // If you find a better method, change it.
       sms.sendSMS(snapshot, parameters);
       tagRef.off("value", cReqs[requestID]);
