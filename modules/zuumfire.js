@@ -126,7 +126,7 @@ var contactClient = function(parameters) {
         sms.sendSMS(snapshot, parameters);
       }
       console.log("some ..");
-      tagRef.off("value", this);
+      tagRef.off("value", ref);
     }
   });
   resp = "success";
