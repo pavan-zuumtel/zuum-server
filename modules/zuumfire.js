@@ -107,33 +107,20 @@ var contactClient = function(parameters) {
 
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
   requestID = parameters.mobileNumber + parameters.tagID;
+  var off;
   cReqs[requestID] = tagRef.on("value", function(snapshot) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
       
-      /*
-      console.log(cancelRequests.hasOwnProperty(parameters.mobileNumber));
-      // check to see if the user has later decided to unfollow the tag and
-      // submitted a cancel/unfollow request
-      if (cancelRequests.hasOwnProperty(parameters.mobileNumber)) {
-        var cancelIds = cancelRequests[parameters.mobileNumber];
-        console.log("dsdsdsenf");
-        console.log(cancelIds.hasOwnProperty(parameters.tagID));
-        if(!cancelIds.hasOwnProperty(parameters.tagID)) {
-          // No cancel req. for this tagId. so send sms
-          console.log("ssend...");
-          sms.sendSMS(snapshot, parameters);
-        } else { console.log("there is a cancelRequest for: ", parameters.tagID);} 
-      } else { 
-        console.log("snnnd");
-        sms.sendSMS(snapshot, parameters);
-      }*/
       console.log("some ..");
+      off = true;
       sms.sendSMS(snapshot, parameters);
       tagRef.off("value", cReqs[requestID]);
     }
   });
+  if(off)
+    tagRef.off("value", cReqs[requestID]);
   resp = "success";
   return resp;
 };
@@ -145,20 +132,6 @@ var cancelReq = function(cancelDetails) {
   requestID = mobileNumber + tagID;
   var tagRef = myFirebaseRef.child(auctionSite).child(cancelDetails.tagID);
   tagRef.off('value', cReqs[requestID]);
-  /*
-  var discardedTagIds = {};
-
-  if(cancelRequests.hasOwnProperty(mobileNumber)) {
-    discardedTagIds = cancelRequests[mobileNumber];
-    discardedTagIds[tagID] = true;  //
-    console.log("Got the request for cancelling sms for ", tagID);
-    console.log(cancelRequests);
-  } else {
-    discardedTagIds[tagID] = true;
-    cancelRequests[mobileNumber] = discardedTagIds;
-    console.log("Got the request for cancelling sms for ", tagID);
-    console.log(cancelRequests);
-  }*/
 
   return "SUCCESS";
 };
