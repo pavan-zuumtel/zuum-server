@@ -96,7 +96,6 @@ function removeStartingZeros(str) {
 
 
 var contactClient = function(parameters) {
-  var resp;
 
   if (auctionStarted === false) {
     // resp = 'Auction has not yet started. So your request will not be' + 
@@ -115,14 +114,18 @@ var contactClient = function(parameters) {
       
       console.log("some ..");
       off = true;
+      // This function is called twice if the data already exists at this
+      // location(even after calling off). So, I'm using the variable off
+      // and calling off after thid callback and it seems to be working..
+      // If you find a better method, change it.
       sms.sendSMS(snapshot, parameters);
       tagRef.off("value", cReqs[requestID]);
     }
   });
   if(off)
     tagRef.off("value", cReqs[requestID]);
-  resp = "success";
-  return resp;
+  
+  return "SUCCESS";
 };
 
 var cancelReq = function(cancelDetails) {
@@ -134,21 +137,6 @@ var cancelReq = function(cancelDetails) {
   tagRef.off('value', cReqs[requestID]);
 
   return "SUCCESS";
-};
-
-var checkCancelRequests = function(parameters) {
-  var mobileNumber = parameters.mobileNumber;
-  var tagID = parameters.tagID;
-  var discardedTagIds;
-  console.log("IN checkCancelRequests");
-
-  if(cancelRequests.hasOwnProperty(mobileNumber)) {
-    discardedTagIds = cancelRequests[mobileNumber];
-    console.log("deleting ..", tagID);
-    delete discardedTagIds[tagID];
-    console.log(cancelRequests);
-  }
-   
 };
 
 exports.sendData = sendData;
