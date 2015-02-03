@@ -30,6 +30,7 @@ myFirebaseRef.child(auctionSite).on('value', function(snapshot){
 // }
 // So before sending an sms, check if he submitted a cancel req.
 var cancelRequests = {};
+var cReqs = {};
 
 var timeZone = 'America/Los_Angeles';
 
@@ -105,7 +106,8 @@ var contactClient = function(parameters) {
   }
 
   tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
-  ref = tagRef.on("value", function(snapshot) {
+  requestID = parameters.mobileNumber + parameters.tagID;
+  cReqs[requestID] = tagRef.on("value", function(snapshot) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
@@ -126,7 +128,7 @@ var contactClient = function(parameters) {
         sms.sendSMS(snapshot, parameters);
       }
       console.log("some ..");
-      tagRef.off("value", ref);
+      tagRef.off("value", cReqs[requestID]);
     }
   });
   resp = "success";
