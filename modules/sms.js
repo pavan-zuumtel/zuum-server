@@ -82,7 +82,6 @@ var sendSMS = function(snapshot, parameters) {
         console.log(error);
       } else {
         console.log("Message sent: ", mailOptions.text);
-        transport.close();
       }
     }); 
   }
