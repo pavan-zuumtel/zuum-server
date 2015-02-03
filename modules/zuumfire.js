@@ -142,4 +142,3 @@ var cancelReq = function(cancelDetails) {
 exports.sendData = sendData;
 exports.contactClient = contactClient;
 exports.cancelReq = cancelReq;
-exports.checkCancelRequests = checkCancelRequests;
