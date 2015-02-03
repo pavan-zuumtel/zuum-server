@@ -111,6 +111,8 @@ var contactClient = function(parameters) {
     if (snapshot.exists()) {
       console.log(snapshot.val());
       console.log("hi");
+      
+      /*
       console.log(cancelRequests.hasOwnProperty(parameters.mobileNumber));
       // check to see if the user has later decided to unfollow the tag and
       // submitted a cancel/unfollow request
@@ -126,8 +128,9 @@ var contactClient = function(parameters) {
       } else { 
         console.log("snnnd");
         sms.sendSMS(snapshot, parameters);
-      }
+      }*/
       console.log("some ..");
+      sms.sendSMS(snapshot, parameters);
       tagRef.off("value", cReqs[requestID]);
     }
   });
@@ -138,6 +141,11 @@ var contactClient = function(parameters) {
 var cancelReq = function(cancelDetails) {
   var mobileNumber = cancelDetails.mobileNumber;
   var tagID = cancelDetails.tagID;
+  
+  requestID = mobileNumber + tagID;
+  tagRef = myFirebaseRef.child(auctionSite).child(parameters.tagID);
+  tagRef.off('value', cReqs[requestID]);
+  /*
   var discardedTagIds = {};
 
   if(cancelRequests.hasOwnProperty(mobileNumber)) {
@@ -150,7 +158,7 @@ var cancelReq = function(cancelDetails) {
     cancelRequests[mobileNumber] = discardedTagIds;
     console.log("Got the request for cancelling sms for ", tagID);
     console.log(cancelRequests);
-  }
+  }*/
 
   return "SUCCESS";
 };
