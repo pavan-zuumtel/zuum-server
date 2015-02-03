@@ -47,7 +47,7 @@ var sendData = function(cars_info) {
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
     
-    carID = carID.replace("/^[0]+/g", "");
+    carID = carID.replace(/^[0]+/g, "");
     console.log("see:", carID);
 
     // check if the tagID/carID is actually from a car in our database
