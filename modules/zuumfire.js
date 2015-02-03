@@ -22,13 +22,6 @@ myFirebaseRef.child(auctionSite).on('value', function(snapshot){
   tagSnapshot = snapshot;
 });
 
-// Store the details of cancel requests in the following way:
-// {
-//    mobileNumber1 : {tagID: true },
-//    mobileNumber2: {tagID1: true, tagID2: ..},
-//
-// }
-// So before sending an sms, check if he submitted a cancel req.
 var cancelRequests = {};
 var cReqs = {};
 
@@ -54,13 +47,12 @@ var sendData = function(cars_info) {
     carInfo = cars_info[eachCar].split(",");
     carID = carInfo[epc].split('"').join("");
     
-    carID = removeStartingZeros(carID);
+    carID = carID.replace("/^[0]+/g", "");
     console.log("see:", carID);
 
     // check if the tagID/carID is actually from a car in our database
     if(!vehfire.confirmTag(carID, carInfo[antenna_id], tagSnapshot.hasChild(carID)))
       continue;
-
 
     readerId.child(carID).set({
       'Antennaid': carInfo[antenna_id],
@@ -79,21 +71,19 @@ function clearData(auctionSite) {
   ref.remove();
 
   auctionStarted = false;
-  // ind = allReaders.indexOf(auctionSite);
-  // allReaders.splice(ind, 1);
 }
 
+/*
 function removeStartingZeros(str) {
   var eachChar = 0;
 
-  for (eachChar in str) {
-    if(str[eachChar] != '0') {
+  for(eachChar in str)
+    if(str[eachChar] != '0')
       break;
-    }
-  }
+  
   return str.slice(eachChar);
 }
-
+*/
 
 var contactClient = function(parameters) {
 
