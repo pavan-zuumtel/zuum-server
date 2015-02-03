@@ -73,18 +73,6 @@ function clearData(auctionSite) {
   auctionStarted = false;
 }
 
-/*
-function removeStartingZeros(str) {
-  var eachChar = 0;
-
-  for(eachChar in str)
-    if(str[eachChar] != '0')
-      break;
-  
-  return str.slice(eachChar);
-}
-*/
-
 var contactClient = function(parameters) {
 
   if (auctionStarted === false) {
