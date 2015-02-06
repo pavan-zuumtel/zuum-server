@@ -42,7 +42,8 @@ app.post('/fromManheim', function(request, response) {
     model: request.body.model,
     year: request.body.year,
     trim: request.body.trim,
-    lane: request.body.lane
+    lane: request.body.lane,
+    run: request.body.run
   };
 
   console.log("Inside /fromManheiem");

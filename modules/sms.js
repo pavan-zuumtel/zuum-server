@@ -24,7 +24,7 @@ var carrierSMTPFormat = {
 var mailOptions = {
   from: "zuum.email@gmail.com",
   to: "",
-  subject: "About the car you're interested at the auction",
+  subject: "",
   text: ""
 };
 
@@ -38,13 +38,14 @@ var sendSMS = function(snapshot, parameters) {
   var model = parameters.model;
   var trim = parameters.trim;
   var lane = parameters.lane;
+  var run = parameters.run;
+  var vin = parameters.vinNumber;
 
   if (carInfo !== null) {
-    mailOptions.text = "Your " + year + ' ' + make + ' ' + model +
-                        ' ' + trim + " has entered the building at lane" + 
-                       lane + " at "+
-                       carInfo.First_seen_time + 'and tagID: ' + 
-                       parameters.tagID;
+    mailOptions.subject = year + ' ' + make + ' ' + model + ' ' + trum;
+    mailOptions.text = 'This vehichle has entered Lane ' + lane + ' /Run ' +
+                        run + ' at ' + carInfo.First_seen_time + '. VIN: ' +
+                        vin;
 
     transport.sendMail(mailOptions, function(error, response) {
       if(error) {
