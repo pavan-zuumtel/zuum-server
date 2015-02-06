@@ -30,6 +30,7 @@ var confirmTag = function(tag_id, antenna_id, exists) {
       var laneRef = new Firebase(url);
 
       laneRef.child('current_run').set(veh_info.run);
+      laneRef.child('current_tag').set(tag_id);
 
       laneRef.child('current_count').transaction(function(current_run_no) {
         return current_run_no + 1;
