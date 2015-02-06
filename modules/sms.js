@@ -42,7 +42,7 @@ var sendSMS = function(snapshot, parameters) {
   var vin = parameters.vinNumber;
 
   if (carInfo !== null) {
-    mailOptions.subject = year + ' ' + make + ' ' + model + ' ' + trum;
+    mailOptions.subject = year + ' ' + make + ' ' + model + ' ' + trim;
     mailOptions.text = 'This vehichle has entered Lane ' + lane + ' /Run ' +
                         run + ' at ' + carInfo.First_seen_time + '. VIN: ' +
                         vin;
