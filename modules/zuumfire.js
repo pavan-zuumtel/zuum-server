@@ -39,7 +39,7 @@ var sendData = function(cars_info) {
     readerId = myFirebaseRef.child(auctionSite);
     setTimeout(clearData, 8*60*60*1000, auctionSite);
 
-    myFirebaseRef.child(auctionSite).child('StartTime').set(
+    myFirebaseRef.child('StartTimes').child(auctionSite).set(
       Date.now() 
     );
     
