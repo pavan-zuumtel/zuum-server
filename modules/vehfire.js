@@ -26,10 +26,12 @@ var confirmTag = function(tag_id, antenna_id, exists) {
     console.log("ex:", exists);
 
     if(lane == antenna_id && exists === false) {
-      var url = veh_lane_url + lane + '/run_count';
-      var runRef = new Firebase(url);
+      var url = veh_lane_url + lane;
+      var laneRef = new Firebase(url);
 
-      runRef.transaction(function(current_run_no) {
+      laneRef.child('current_run').set(veh_info.run);
+
+      laneRef.child('current_count').transaction(function(current_run_no) {
         return current_run_no + 1;
       });
     
