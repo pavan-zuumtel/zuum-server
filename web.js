@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var zuumFire = require('./modules/zuumfire.js');
+var sms = require('./modules/sms.js');
 
 var app = express();
 
@@ -71,6 +72,17 @@ app.post('/unFollow', function(request, response) {
   var resp = zuumFire.cancelReq(cancelDetails);
 
   response.end(resp);
+});
+
+app.post('/status', function(request, response) {
+  var message = {
+    title: request.body.title,
+    text: request.body.message
+  };
+  var mobile = request.body.mobile_number.trim();
+  var carrier = request.body.carrier_name;
+  sms.sendStatusSMS(message, mobile, carrier);
+
 });
 
 app.listen(app.get('port'), function() {
