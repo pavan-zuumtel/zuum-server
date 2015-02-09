@@ -24,7 +24,7 @@ var carrierSMTPFormat = {
 var mailOptions = {
   from: "lanealert@zuumtel.com",
   to: "",
-  subject: "",
+  // subject: "",
   text: ""
 };
 
@@ -42,7 +42,7 @@ var sendSMS = function(snapshot, parameters) {
   var vin = parameters.vinNumber;
 
   if (carInfo !== null) {
-    mailOptions.subject = year + ' ' + make + ' ' + model + ' ' + trim;
+    // mailOptions.subject = year + ' ' + make + ' ' + model + ' ' + trim;
     mailOptions.text = 'This vehichle has entered Lane ' + lane + '/Run ' +
                         run + ' at ' + carInfo.First_seen_time + '. VIN: ' +
                         vin;
