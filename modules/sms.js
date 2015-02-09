@@ -61,7 +61,6 @@ var sendSMS = function(snapshot, parameters) {
 
 var sendStatusSMS = function(message, mobileNumber, carrier_name) {
   mailOptions.to = mobileNumber + carrierSMTPFormat[carrier_name];
-  mailOptions.subject = message.title;
   mailOptions.text = message.text;
 
   transport.sendMail(mailOptions, function(error, response) {

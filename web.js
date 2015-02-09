@@ -76,7 +76,6 @@ app.post('/unFollow', function(request, response) {
 
 app.post('/status', function(request, response) {
   var message = {
-    title: request.body.title,
     text: request.body.message
   };
   var mobile = request.body.mobile_number.trim();
