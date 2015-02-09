@@ -83,6 +83,7 @@ app.post('/status', function(request, response) {
   var carrier = request.body.carrier_name;
   sms.sendStatusSMS(message, mobile, carrier);
 
+  response.end();
 });
 
 app.listen(app.get('port'), function() {
