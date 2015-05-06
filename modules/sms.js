@@ -7,8 +7,8 @@ var decoder = require('../apis/edmunds/decoder.js');
 var transport = nodemailer.createTransport({
   service: "Gmail",
   auth: {
-    user: "lanealert@zuumtel.com",
-    pass: "Zuumtel102"
+    user: "zuum.email@gmail.com",
+    pass: "zuum.tel"
   }
 });
 
